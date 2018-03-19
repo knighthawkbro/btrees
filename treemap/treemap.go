@@ -167,7 +167,7 @@ func (t *TreeMap) String() string {
 		return "{}"
 	}
 	b := ""
-	s := "{" + inorder(t.root, &b)
+	s := "{ " + inorder(t.root, &b)
 	return s + "}"
 }
 
