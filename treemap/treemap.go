@@ -166,12 +166,12 @@ func (t *TreeMap) String() string {
 	if t.size == 0 {
 		return "{}"
 	}
-	b := ""
-	s := "{ " + inorder(t.root, &b)
-	return s + "}"
+	b := "{ "
+	inorder(t.root, &b)
+	return b + "}"
 }
 
-func inorder(n *node, s *string) string {
+func inorder(n *node, s *string) {
 	if n.left != nil {
 		inorder(n.left, s)
 	}
@@ -179,5 +179,4 @@ func inorder(n *node, s *string) string {
 	if n.right != nil {
 		inorder(n.right, s)
 	}
-	return *s
 }
