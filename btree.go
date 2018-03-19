@@ -21,8 +21,16 @@ type Map interface {
 }
 
 func main() {
+	fmt.Println("\n******************************************")
+	fmt.Print("*\tRunning Tree Map driver function...")
+	fmt.Println("\n******************************************")
+	fmt.Println("")
 	tree := treemap.New()
 	driver(tree)
+	fmt.Println("\n******************************************")
+	fmt.Print("*\tRunning Tree Map suess function...")
+	fmt.Println("\n******************************************")
+	fmt.Println("")
 	tree = treemap.New()
 	suess(tree)
 }
