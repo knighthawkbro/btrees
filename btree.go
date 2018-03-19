@@ -2,7 +2,12 @@ package main
 
 import (
 	"btrees/treemap"
+	"bufio"
 	"fmt"
+	"log"
+	"os"
+	"regexp"
+	"strings"
 )
 
 // Map interface
@@ -19,7 +24,7 @@ func main() {
 	tree := treemap.New()
 	driver(tree)
 	tree = treemap.New()
-	seuss(tree)
+	suess(tree)
 }
 
 func driver(ages Map) {
@@ -70,6 +75,33 @@ func driver(ages Map) {
 	}
 }
 
-func seuss(words Map) {
-
+func suess(words Map) {
+	file, err := os.Open("greenEggs.txt")
+	if err != nil {
+		log.Fatalln(err)
+	}
+	defer file.Close()
+	reg, err := regexp.Compile("[^a-zA-Z]+")
+	if err != nil {
+		log.Fatal(err)
+	}
+	scanner := bufio.NewScanner(file)
+	for scanner.Scan() {
+		for _, word := range strings.Split(scanner.Text(), " ") {
+			word = reg.ReplaceAllString(word, "")
+			if word == "" {
+				continue
+			}
+			if words.Contains(strings.ToLower(word)) {
+				count := words.Get(strings.ToLower(word))
+				if count < 0 {
+					continue
+				}
+				words.Add(strings.ToLower(word), count+1)
+				continue
+			}
+			words.Add(strings.ToLower(word), 1)
+		}
+	}
+	fmt.Println(words)
 }

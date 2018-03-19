@@ -13,6 +13,10 @@ type node struct {
 }
 
 func (n node) compareTo(than string) int {
+	// Corner case to shortcut if two strings are equal
+	if n.key == than {
+		return 0
+	}
 	var result int
 	var small string
 	if len(n.key) < len(than) {
@@ -27,6 +31,14 @@ func (n node) compareTo(than string) int {
 		} else {
 			break
 		}
+	}
+	// Had to fix a corner case where the smaller word was just
+	// the first part of the Than word.
+	if result == 0 {
+		if small == n.key {
+			return -1
+		}
+		return 1
 	}
 	return result
 }
@@ -61,7 +73,8 @@ func (t *TreeMap) Add(key string, value int) int {
 	for current != nil {
 		result := new.compareTo(current.key)
 		if result == 0 {
-			return -1
+			current.value = value
+			return value
 		}
 		parent = current
 		if result < 0 {
