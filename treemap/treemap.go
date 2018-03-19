@@ -12,6 +12,9 @@ type node struct {
 	TreeMap     *TreeMap // Pointer to the TreeMap it is attached to
 }
 
+// compareTo (Private) - Custom compareTo method to compare if two strings are the same
+// 0 == equals, < 0 == left string is greater than and shows difference in ascii values,
+// > 0 right string is greater than and shows the difference between ascii values
 func (n node) compareTo(than string) int {
 	// Corner case to shortcut if two strings are equal
 	if n.key == than {
@@ -93,7 +96,7 @@ func (t *TreeMap) Add(key string, value int) int {
 }
 
 // Remove (Public) - removes key value pair from map and returns value
-// if key not found, returns nil
+// if key not found, returns nil, This is left unimplemented because of lab
 func (t *TreeMap) Remove(key string) int {
 	/* 	if key == nil {
 	   		return nil
@@ -171,6 +174,8 @@ func (t *TreeMap) String() string {
 	return b + "}"
 }
 
+// inorder (Private) - Recursive function to traverse the B-Tree
+// and modify the pointer to a base string.
 func inorder(n *node, s *string) {
 	if n.left != nil {
 		inorder(n.left, s)
