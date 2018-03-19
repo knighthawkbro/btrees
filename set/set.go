@@ -1,13 +1,14 @@
 package set
 
-import "fmt"
-
 // node (Private) - Defines the structure for each individual node in a linked list
 type node struct {
 	data        string // Value of Node
 	right, left *node  // Pointers to the next left or right node
 }
 
+// compareTo (Private) - Custom compareTo method to compare if two strings are the same
+// 0 == equals, < 0 == left string is greater than and shows difference in ascii values,
+// > 0 right string is greater than and shows the difference between ascii values
 func (n node) compareTo(than string) int {
 	// Corner case to shortcut if two strings are equal
 	if n.data == than {
@@ -39,9 +40,9 @@ func (n node) compareTo(than string) int {
 	return result
 }
 
-// String (Public) -
+// String (Public) - Implements the Stringer method to print out the node's data
 func (n node) String() string {
-	return fmt.Sprint(n.data)
+	return n.data
 }
 
 // TreeSet (Public) - The container for all the linked nodes in a set
@@ -91,11 +92,13 @@ func (t *TreeSet) Add(item string) bool {
 }
 
 // Remove (Public) - Removes the first item on a list and returns it
+// Not implemented due to optional.
 func (t *TreeSet) Remove() string {
 	return "<nil>"
 }
 
-// Get (Public) - Returns the first item list
+// Get (Public) - Returns the first item list, I didn't implement this
+// function because it wasn't necessary for the lab
 func (t *TreeSet) Get() string {
 	if t.size == 0 {
 		return "<nil>"
