@@ -1,6 +1,7 @@
 package main
 
 import (
+	"btrees/set"
 	"btrees/treemap"
 	"bufio"
 	"fmt"
@@ -20,19 +21,34 @@ type Map interface {
 	String() string
 }
 
+type Set interface {
+	Add(item string) bool
+	Remove() string
+	Get() string
+	Contains(item string) bool
+	Size() int
+	String() string
+}
+
 func main() {
-	fmt.Println("\n******************************************")
+	fmt.Println("\n**************************************************")
 	fmt.Print("*\tRunning Tree Map driver function...")
-	fmt.Println("\n******************************************")
+	fmt.Println("\n**************************************************")
 	fmt.Println("")
 	tree := treemap.New()
 	driver(tree)
-	fmt.Println("\n******************************************")
+	fmt.Println("\n**************************************************")
 	fmt.Print("*\tRunning Tree Map suess function...")
-	fmt.Println("\n******************************************")
+	fmt.Println("\n**************************************************")
 	fmt.Println("")
 	tree = treemap.New()
 	suess(tree)
+	fmt.Println("\n**************************************************")
+	fmt.Print("*\tRunning Tree Map suess function...")
+	fmt.Println("\n**************************************************")
+	fmt.Println("")
+	treeset := set.New()
+	seussSet(treeset)
 }
 
 func driver(ages Map) {
@@ -109,6 +125,26 @@ func suess(words Map) {
 				continue
 			}
 			words.Add(strings.ToLower(word), 1)
+		}
+	}
+	fmt.Println(words)
+}
+
+func seussSet(words Set) {
+	file, err := os.Open("greenEggs.txt")
+	if err != nil {
+		log.Fatalln(err)
+	}
+	defer file.Close()
+	reg, err := regexp.Compile("[^a-zA-Z]+")
+	if err != nil {
+		log.Fatal(err)
+	}
+	scanner := bufio.NewScanner(file)
+	for scanner.Scan() {
+		for _, word := range strings.Split(scanner.Text(), " ") {
+			word = reg.ReplaceAllString(word, "")
+			words.Add(strings.ToLower(word))
 		}
 	}
 	fmt.Println(words)
